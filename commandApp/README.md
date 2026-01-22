@@ -2,6 +2,7 @@
 
 ## What is this repository?
 This repository contains the implementation of an exercise completed during the **CAR** (Conception d'Applications Réparties) course.
+It provides an application to handle commands, and use kafka to make bridge to the stockApp.
 
 The project assignment can be found [here](/ressources/TP2-Sujet.pdf).
 
