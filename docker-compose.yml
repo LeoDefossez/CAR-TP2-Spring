@@ -1,0 +1,64 @@
+services:
+  kata-zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.0
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kata-kafka:
+    image: confluentinc/cp-kafka:7.4.0
+    depends_on:
+      - kata-zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'kata-zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kata-kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      # Désactivation de l'Authorizer pour le test (évite les erreurs de droits)
+      KAFKA_AUTHORIZER_CLASS_NAME: 'kafka.security.authorizer.AclAuthorizer'
+      KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: 'true'
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "29092"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  kata-akhq:
+    image: tchiotludo/akhq
+    environment:
+      AKHQ_CONFIGURATION: |
+        akhq:
+          connections:
+            docker-kafka-server:
+              properties:
+                bootstrap.servers: "kata-kafka:29092"
+    ports:
+      - 3000:8080
+    depends_on:
+      kata-kafka:
+        condition: service_healthy
+
+  kata-kafka_init:
+    image: confluentinc/cp-kafka:7.4.0
+    depends_on:
+      - kata-kafka
+    entrypoint: [ "/bin/sh", "-c" ]
+    command: |
+      "
+      echo 'Waiting for Kafka...'
+      while ! nc -z kata-kafka 29092; do
+        sleep 1
+      done
+      
+      echo 'Creating topics...'
+      kafka-topics --bootstrap-server kata-kafka:29092 --create --topic my-first-topic --partitions 3 --replication-factor 1 --if-not-exists
+      
+      echo 'Topic list:'
+      kafka-topics --bootstrap-server kata-kafka:29092 --list
+      "
