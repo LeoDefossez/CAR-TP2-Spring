@@ -1,7 +1,7 @@
-package com.example.App.repository;
+package com.example.app.repository;
 
-import com.example.App.entity.Client;
-import com.example.App.entity.Commande;
+import com.example.app.entity.Client;
+import com.example.app.entity.Commande;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

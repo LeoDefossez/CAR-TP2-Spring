@@ -1,9 +1,9 @@
-package com.example.App.ctrl;
+package com.example.app.ctrl;
 
 
-import com.example.App.entity.Client;
-import com.example.App.entity.Commande;
-import com.example.App.service.CommandeService;
+import com.example.app.entity.Client;
+import com.example.app.entity.Commande;
+import com.example.app.service.CommandeService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +20,9 @@ public class CommandeController {
 
     @Autowired
     private CommandeService commandeService;
+
+    @Autowired
+    private CommandeProducer commandeProducer;
 
     @PostMapping("orders/newOrder")
     public RedirectView newOrder(@RequestParam String name, HttpSession session){
@@ -55,6 +58,24 @@ public class CommandeController {
 
         return new ModelAndView("printCommande", Map.of("commande",commande));
     }
+
+    @PostMapping("orders/{id}/validate")
+    public RedirectView validateOrder(@PathVariable("id") long id, HttpSession session) {
+        Commande commande = commandeService.getCommandeById(id);
+
+        if (this.isInvalidAccess(session, commande)) {
+            return new RedirectView("/store/home");
+        }
+
+        if (commande.getLines() != null) {
+            for (var line : commande.getLines()) {
+                commandeProducer.sendCommande(line.getId(), line.getQuantity());
+            }
+        }
+
+        return new RedirectView("/store/orders/" + id);
+    }
+
 
     private boolean isInvalidAccess(HttpSession session, Commande commande){
         Client client = (Client) session.getAttribute("loggedClient");

@@ -1,10 +1,10 @@
-package com.example.App.ctrl;
+package com.example.app.ctrl;
 
-import com.example.App.entity.Client;
-import com.example.App.entity.Commande;
-import com.example.App.entity.CommandeLigne;
-import com.example.App.service.CommandeLigneService;
-import com.example.App.service.CommandeService;
+import com.example.app.entity.Client;
+import com.example.app.entity.Commande;
+import com.example.app.entity.CommandeLigne;
+import com.example.app.service.CommandeLigneService;
+import com.example.app.service.CommandeService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,8 +1,8 @@
-package com.example.App.service;
+package com.example.app.service;
 
-import com.example.App.entity.Commande;
-import com.example.App.entity.CommandeLigne;
-import com.example.App.repository.CommandeLigneRepository;
+import com.example.app.entity.Commande;
+import com.example.app.entity.CommandeLigne;
+import com.example.app.repository.CommandeLigneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

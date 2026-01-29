@@ -1,6 +1,6 @@
-package com.example.App.repository;
+package com.example.app.repository;
 
-import com.example.App.entity.Client;
+import com.example.app.entity.Client;
 import org.springframework.data.repository.CrudRepository;
 
 public interface ClientRepository extends CrudRepository<Client,String> {

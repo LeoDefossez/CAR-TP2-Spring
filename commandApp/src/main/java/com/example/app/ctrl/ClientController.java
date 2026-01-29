@@ -1,7 +1,7 @@
-package com.example.App.ctrl;
+package com.example.app.ctrl;
 
-import com.example.App.entity.Client;
-import com.example.App.service.ClientService;
+import com.example.app.entity.Client;
+import com.example.app.service.ClientService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
