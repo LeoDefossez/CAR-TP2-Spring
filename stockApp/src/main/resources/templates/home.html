@@ -1,0 +1,13 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<body>
+<h1>All stocks </h1>
+<table border="1">
+    <tr><th>Name</th><th>Quantity</th><th>Cost</th></tr>
+    <tr th:each="product : ${products}">
+        <td th:text="${product.libelle}" />
+        <td th:text="${product.quantity}" />
+        <td th:text="${product.cost}" />
+    </tr>
+</table>
+</body>
+</html>

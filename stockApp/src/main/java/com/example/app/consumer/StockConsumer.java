@@ -1,4 +1,4 @@
-package com.example.app;
+package com.example.app.consumer;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
@@ -26,5 +26,8 @@ public class StockConsumer {
     public List<String> getMessages() {
         return messages;
     }
+
+
+
 }
 

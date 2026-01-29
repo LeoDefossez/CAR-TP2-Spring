@@ -8,5 +8,5 @@ It provides an application to handle stocks, and use kafka to make bridge to the
 1. **Build** the project using Maven.
 2. **Run** the `StockApp` class.
 3. **Access** the application by opening a web browser and navigating to :
-    [http://localhost:8081/](http://localhost:8081/)
+    [http://localhost:8081/home](http://localhost:8081/)
 
