@@ -31,14 +31,14 @@ public class CommandeLigneController {
     @PostMapping("/{id}/newLine")
     public RedirectView newLine(@PathVariable("id") long id,
                                 @RequestParam String libelle, @RequestParam long quantity,
-                                @RequestParam long cost, HttpSession session){
+                                HttpSession session){
 
         Commande commande = commandeService.getCommandeById(id);
         if( this.isInvalidAccess(session,commande) ){
             return new RedirectView("/store/home");
         }
 
-        commandeLigneService.createCommandeLine(libelle,quantity,cost,commande);
+        commandeLigneService.createCommandeLine(libelle,quantity,commande);
 
         return new RedirectView("/store/orders/" + id);
     }

@@ -15,7 +15,6 @@ public class CommandeLigne {
 
     private long quantity;
 
-    private long cost;
 
     @ManyToOne
     private Commande commande;
@@ -23,10 +22,9 @@ public class CommandeLigne {
     public CommandeLigne() {
     }
 
-    public CommandeLigne(String libelle, long quantity, long cost, Commande commande) {
+    public CommandeLigne(String libelle, long quantity,  Commande commande) {
         this.libelle = libelle;
         this.quantity = quantity;
-        this.cost = cost;
         this.commande = commande;
     }
 
@@ -54,13 +52,6 @@ public class CommandeLigne {
         this.quantity = quantity;
     }
 
-    public long getCost() {
-        return cost;
-    }
-
-    public void setCost(long cost) {
-        this.cost = cost;
-    }
 
     public Commande getCommande() {
         return commande;

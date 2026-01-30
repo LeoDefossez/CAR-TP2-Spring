@@ -11,8 +11,7 @@
 <ul>
   <li th:each="line : ${commande.lines}">
     <span th:text="${line.libelle}"></span> :
-    <span th:text="${line.quantity}"></span> x
-    <span th:text="${line.cost}"></span>€
+    <span th:text="${line.quantity}"></span>
     <a th:href="@{/store/orders/{OrderId}/delete/{lineId}(OrderId=${commande.id}, lineId=${line.id})}">delete</a>
   </li>
 </ul>
@@ -23,7 +22,6 @@
 
   <div> Name : <input type="text" name="libelle"></div>
   <div> Quantity : <input type="number" name="quantity"></div>
-  <div> Unit cost : <input type="number" name="cost"></div>
   <div><input type="SUBMIT" value="Ajouter"></div>
 </form>
 

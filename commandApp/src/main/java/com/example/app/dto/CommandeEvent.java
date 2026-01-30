@@ -1,13 +1,21 @@
 package com.example.app.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import com.example.app.entity.CommandeLigne;
+
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class CommandeEvent {
-    private int productId;
-    private int quantity;
+    private String libelle;
+    private long quantity;
+
+    public CommandeEvent(String libelle,  long quantity){
+        this.libelle = libelle;
+        this.quantity = quantity;
+    }
+    public static CommandeEvent fromCommandeLine(CommandeLigne line){
+        return new CommandeEvent(line.getLibelle(), line.getQuantity());
+    }
 }

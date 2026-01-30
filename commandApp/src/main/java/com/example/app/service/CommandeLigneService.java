@@ -17,8 +17,8 @@ public class CommandeLigneService {
         this.commandeLigneRepository = commandeLigneRepository;
     }
 
-    public void createCommandeLine(String libelle, long quantity, long cost, Commande commande){
-        CommandeLigne line = new CommandeLigne(libelle,quantity,cost,commande);
+    public void createCommandeLine(String libelle, long quantity, Commande commande){
+        CommandeLigne line = new CommandeLigne(libelle,quantity,commande);
         commandeLigneRepository.save(line);
     }
 

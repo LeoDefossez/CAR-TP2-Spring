@@ -14,3 +14,9 @@ It provides both an application to handle stocks and an application to handle co
 ## How to close the docker 
 1. **Run** in terminal `docker compose down`
 
+## Notes
+1. How to submit an order ?
+   - when printing an order click on 'CONFIRMER ET ENVOYER LA COMMANDE'
+2. How to know if the order was taken into account in the stock app ?
+   - Reload the page, if the stock has reduced, then it was taken into account
+   - If not, check the log of the stock App, either no product matched the name or there was not enough quantity in stock

@@ -5,9 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class CommandeEvent {
-    private int productId;
-    private int quantity;
+    private String libelle;
+    private long quantity;
 }

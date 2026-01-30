@@ -1,32 +1,42 @@
 package com.example.app.consumer;
 
-import org.apache.kafka.clients.consumer.ConsumerRecord;
+import com.example.app.dto.CommandeEvent;
+import com.example.app.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import tools.jackson.databind.ObjectMapper;
 
 @Component
 public class StockConsumer {
+    private ObjectMapper objectMapper;
+
+    @Autowired
+    private ProductService productService;
 
     private final static Logger LOGGER = LoggerFactory.getLogger(StockConsumer.class);
 
-    private List<String> messages = Collections.synchronizedList(new ArrayList<>());
-
-    @KafkaListener(topics = "my-first-topic", groupId = "my-first-group")
-    public void consume(ConsumerRecord<String, String> record) {
-        LOGGER.info("Consumed message: {}", record.value());
-        messages.add(record.value());
+    public StockConsumer() {
+        this.objectMapper = new ObjectMapper();
     }
 
-    public List<String> getMessages() {
-        return messages;
-    }
+    @KafkaListener(topics = "my-first-topic", groupId = "group_id")
+    public void consume(String message) {
+        LOGGER.info("Ordre de réduction reçu : {}", message);
 
+        try {
+            CommandeEvent event = objectMapper.readValue(message, CommandeEvent.class);
+
+            productService.reduceProductQuantity(event.getLibelle(), (int) event.getQuantity());
+
+            LOGGER.info("Succès : Stock réduit de {} pour {}", event.getQuantity() ,event.getLibelle());
+
+        } catch (RuntimeException e) {
+            LOGGER.error("Stock insuffisant ou produit introuvable : {}", e.getMessage());
+        }
+    }
 
 
 }

@@ -9,16 +9,11 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class Product {
 
-
     @Id
-    @GeneratedValue
-    private int id;
-
     private String libelle;
 
     private int quantity;
