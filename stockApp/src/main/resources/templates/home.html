@@ -9,5 +9,15 @@
         <td th:text="${product.cost}" />
     </tr>
 </table>
+<div><a th:href="@{/home}">refresh</a></div>
+
+
+<h1>Resupply</h1>
+<form th:action="@{/home/resupply}" method="get">
+    <button type="submit" style="padding: 10px 20px; background-color: gray; color: white; cursor: pointer;">
+        Resupply
+    </button>
+</form>
+
 </body>
 </html>

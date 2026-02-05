@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Map;
 
@@ -17,5 +18,11 @@ public class StockController {
     @GetMapping("/home")
     public ModelAndView home(){
         return new ModelAndView("home", Map.of("products",productService.allProducts()));
+    }
+
+    @GetMapping("/home/resupply")
+    public RedirectView resupply(){
+        productService.resupply();
+        return new RedirectView("/home");
     }
 }

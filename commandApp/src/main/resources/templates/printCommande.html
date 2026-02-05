@@ -1,7 +1,7 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <body>
 <h1>Hello <span th:text="${commande.client.firstname}"/> ! </h1>
-<a th:href="@{/store/home}">Back to Home</a> <h1> Order <span th:text="${commande.name}"></span></h1>
+<a th:href="@{/store/clienthome}">Back</a> <h1> Order <span th:text="${commande.name}"></span></h1>
 
 <table border="1">
     <tr><th>Name</th><th>Quantity</th></tr>

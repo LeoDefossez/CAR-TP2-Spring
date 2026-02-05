@@ -6,6 +6,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
+import java.util.List;
+
 @Service
 public class ProductService {
 
@@ -42,5 +45,14 @@ public class ProductService {
 
     }
 
-
+    @Transactional
+    public void resupply() {
+        Iterator<Product> products = productRepository.findAll().iterator();
+        Product next;
+        while (products.hasNext()){
+            next = products.next();
+            next.setQuantity(next.getQuantity() + 2);
+            productRepository.save(next);
+        }
+    }
 }
