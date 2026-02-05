@@ -8,8 +8,8 @@ It provides both an application to handle stocks and an application to handle co
 1. **Clone** this repository to your local machine.
 2. **Run** in terminal `docker compose up -d`.
 3. **Access** the application kafka [http://localhost:3000](http://localhost:3000)
-4. **Run** the `CommandApp` class in the commandApp folder.
-5. **Run** the `StockApp` class in the stockApp folder.
+4. **Run** the `CommandApp` class in the commandApp folder, see CommandApp's [README](./commandApp/README.md).
+5. **Run** the `StockApp` class in the stockApp folder see StockApp's [README](./stockApp/README.md).
 
 ## How to close the docker 
 1. **Run** in terminal `docker compose down`
